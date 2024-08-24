@@ -25,6 +25,5 @@ const md5 = require("md5");
       permission: 1,
       enabled: true,
     });
-    console.log("初始化管理员数据完毕...");
   }
 })();

@@ -1,19 +1,19 @@
-import { useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { updateUserInfo, updateStoreUserInfo } from "../redux/userSlice"
+import {useState} from "react"
+import {useSelector, useDispatch} from "react-redux"
+import {updateUserInfo, updateStoreUserInfo} from "../redux/userSlice"
 
 import PageHeader from "../components/PageHeader"
 import PersonalInfoItem from "../components/PersonalInfoItem"
 
-import { Card, Button, Upload, Image, Modal, Form, Input, message } from "antd";
-import { PlusOutlined } from '@ant-design/icons';
+import {Card, Button, Upload, Image, Modal, Form, Input, message} from "antd";
+import {PlusSquareOutlined} from '@ant-design/icons';
 
-import { formatDate } from "../utils/tool"
-import { checkPasswordIsRight } from "../api/user"
+import {formatDate} from "../utils/tool"
+import {checkPasswordIsRight} from "../api/user"
 import styles from "../css/Personal.module.css"
 
 function Personal(props) {
-    const { userInfo } = useSelector(state => state.user);
+    const {userInfo} = useSelector(state => state.user);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [panelName, setPanelName] = useState("");
     const [editInfo, setEditInfo] = useState({});
@@ -37,7 +37,6 @@ function Personal(props) {
      * 模态框点击确定时的回调
      */
     const handleOk = () => {
-        console.log(editInfo);
         // 派发异步 action
         dispatch(updateUserInfo({
             userId: userInfo._id,
@@ -56,11 +55,11 @@ function Personal(props) {
 
     /**
      * 上传头像时单独处理
-     * @param {*} newInfo 
-     * @param {*} key 
+     * @param {*} newInfo
+     * @param {*} key
      */
     function handleAvatar(newInfo, key) {
-        const newAvatar = { [key]: newInfo };
+        const newAvatar = {[key]: newInfo};
         dispatch(updateStoreUserInfo(newAvatar));
         dispatch(updateUserInfo({
             userId: userInfo._id,
@@ -74,7 +73,7 @@ function Personal(props) {
             message.error("昵称不能为空");
             return;
         }
-        const newUserInfo = { ...editInfo };
+        const newUserInfo = {...editInfo};
         if (typeof newInfo === 'string') {
             newUserInfo[key] = newInfo.trim();
         } else {
@@ -84,13 +83,43 @@ function Personal(props) {
     }
 
     function updatePasswordInfo(newInfo, key) {
-        const newPasswordInfo = { ...passwordInfo };
+        const newPasswordInfo = {...passwordInfo};
         newPasswordInfo[key] = newInfo.trim();
         setPasswordInfo(newPasswordInfo);
         // 如果是新密码框，更新 editInfo 的内容
         if (key === "newpassword") {
             updateInfo(newInfo, 'loginPwd');
         }
+    }
+
+    /**
+     * 给展示的信息加星
+     * @param info 参数
+     * @param infoType 参数类型
+     */
+    function addStars(info, infoType) {
+        let result = info;
+        const length = info.length;
+
+        switch (infoType) {
+            case 'phone':
+                if (length === 11)
+                    result = info.substring(0, 3) + '****' + info.substring(7, 11);
+                break;
+            case 'email':
+                const atIndex = info.indexOf('@');
+                if (atIndex > 0) {
+                    const username = info.substring(0, atIndex);
+                    const hiddenUsername = username.charAt(0) + '*'.repeat(username.length - 1);
+                    const domain = info.substring(atIndex);
+                    result = hiddenUsername + domain;
+                }
+                break;
+            default:
+                if (length >= 4 && length <= 11) result = info.substring(0, 3) + '****' + info.substring(length - 4, length);
+                break;
+        }
+        return result;
     }
 
     let modalContent = null;
@@ -141,7 +170,7 @@ function Personal(props) {
                             label="确认密码"
                             name="passwordConfirm"
                             rules={[
-                                ({ getFieldValue }) => ({
+                                ({getFieldValue}) => ({
                                     validator(_, value) {
                                         if (!value || getFieldValue('newpassword') === value) {
                                             return Promise.resolve();
@@ -174,7 +203,7 @@ function Personal(props) {
                         </Form.Item>
 
                         {/* 确认修改按钮 */}
-                        <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
+                        <Form.Item wrapperCol={{offset: 5, span: 16}}>
                             <Button type="primary" htmlType="submit">
                                 确认
                             </Button>
@@ -240,7 +269,7 @@ function Personal(props) {
                         </Form.Item>
 
                         {/* 确认修改按钮 */}
-                        <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
+                        <Form.Item wrapperCol={{offset: 5, span: 16}}>
                             <Button type="primary" htmlType="submit">
                                 确认
                             </Button>
@@ -278,7 +307,7 @@ function Personal(props) {
                         </Form.Item>
 
                         {/* 确认修改按钮 */}
-                        <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
+                        <Form.Item wrapperCol={{offset: 5, span: 16}}>
                             <Button type="primary" htmlType="submit">
                                 确认
                             </Button>
@@ -299,7 +328,7 @@ function Personal(props) {
      */
     async function checkPassword() {
         if (passwordInfo.oldpassword) {
-            const { data } = await checkPasswordIsRight(userInfo._id, passwordInfo.oldpassword);
+            const {data} = await checkPasswordIsRight(userInfo._id, passwordInfo.oldpassword);
             if (!data) {
                 return Promise.reject("密码不正确");
             }
@@ -308,82 +337,95 @@ function Personal(props) {
 
     return (
         <>
-            <PageHeader title="个人中心" />
+            <PageHeader title="个人中心"/>
             {/* 信息展示 */}
             <div className={styles.container}>
                 <div className={styles.row}>
                     <Card title="基本信息"
-                        extra={<div className={styles.edit} onClick={() => showModal("基本信息")}>编辑</div>}
+                          extra={<div className={styles.edit} onClick={() => showModal("基本信息")}>编辑</div>}
                     >
                         <PersonalInfoItem info={{
                             itemName: "登录账号",
                             itemValue: userInfo.loginId,
-                        }} />
-                        <PersonalInfoItem info={{
-                            itemName: "账号密码",
-                            itemValue: "************",
-                        }} />
+                        }}/>
                         <PersonalInfoItem info={{
                             itemName: "用户昵称",
                             itemValue: userInfo.nickname,
-                        }} />
+                        }}/>
                         <PersonalInfoItem info={{
                             itemName: "用户积分",
                             itemValue: userInfo.points,
-                        }} />
+                        }}/>
                         <PersonalInfoItem info={{
                             itemName: "注册时间",
                             itemValue: formatDate(userInfo.registerDate),
-                        }} />
+                        }}/>
                         <PersonalInfoItem info={{
                             itemName: "上次登录时间",
                             itemValue: formatDate(userInfo.lastLoginDate),
-                        }} />
-                        <div style={{ fontWeight: 100, height: 50 }}>当前头像：</div>
-                        <Image src={userInfo.avatar} width={100} />
-                        <div style={{ fontWeight: 100, height: 50 }}>上传新头像：</div>
-                        <Upload
-                            action="/api/upload"
-                            listType="picture-card"
-                            maxCount={1}
-                            onChange={(e) => {
-                                if (e.file.status === 'done') {
-                                    // 说明上传已经完成
-                                    const url = e.file.response.data;
-                                    handleAvatar(url, 'avatar');
-                                }
-                            }}
-                        >
-                            <PlusOutlined />
-                        </Upload>
+                        }}/>
+                        <div style={{
+                            display: 'flex',
+                            width: 250,
+                            justifyContent: 'space-between',
+                            fontWeight: 100,
+                            height: 150
+                        }}>
+                            <div>
+                                <div>当前头像：</div>
+                                <Image src={userInfo.avatar} width={100}/>
+                            </div>
+                           <div>
+                               <div>上传新头像：</div>
+                               <Upload
+                                   style={{
+                                       width: 100,
+                                       height: 100
+                                   }}
+                                   action="/api/upload"
+                                   listType="picture-card"
+                                   maxCount={1}
+                                   onChange={(e) => {
+                                       if (e.file.status === 'done') {
+                                           // 说明上传已经完成
+                                           const url = e.file.response.data;
+                                           handleAvatar(url, 'avatar');
+                                       }
+                                   }}
+                               >
+                                   <PlusSquareOutlined/>
+                               </Upload>
+                           </div>
+                        </div>
+
                     </Card>
                 </div>
                 <div className={styles.row}>
                     <Card title="社交账号"
-                        extra={<div className={styles.edit} onClick={() => showModal("社交账号")}>编辑</div>}
+                          extra={<div className={styles.edit} onClick={() => showModal("社交账号")}>编辑</div>}
                     >
                         <PersonalInfoItem info={{
                             itemName: "邮箱",
-                            itemValue: userInfo.mail ? userInfo.mail : "未填写",
-                        }} />
+                            itemValue: userInfo.mail ? addStars(userInfo.mail, 'email') : "未填写",
+                        }}/>
                         <PersonalInfoItem info={{
                             itemName: "QQ号",
-                            itemValue: userInfo.qq ? userInfo.qq : "未填写",
-                        }} />
+                            itemValue: userInfo.qq ? addStars(userInfo.qq) : "未填写",
+                        }}/>
                         <PersonalInfoItem info={{
                             itemName: "微信号",
-                            itemValue: userInfo.wechat ? userInfo.wechat : "未填写",
-                        }} />
+                            itemValue: userInfo.wechat ? addStars(userInfo.wechat) : "未填写",
+                        }}/>
                         <PersonalInfoItem info={{
                             itemName: "github",
                             itemValue: userInfo.github ? userInfo.github : "未填写",
-                        }} />
+                        }}/>
 
                     </Card>
                 </div>
                 <div className={styles.row}>
                     <Card title="个人简介"
-                        extra={<div className={styles.edit} onClick={() => showModal("个人简介")}>编辑</div>}
+                          extra={<div className={styles.edit} onClick={() => showModal("个人简介")}>编辑</div>}
                     >
                         <p className={styles.intro}>
                             {userInfo.intro ? userInfo.intro : "未填写"}

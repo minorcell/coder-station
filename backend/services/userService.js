@@ -55,6 +55,10 @@ module.exports.loginService = async function (loginInfo) {
         },
       };
     }
+
+    data.lastLoginDate = new Date().getTime().toString()
+    await data.save()
+
     // 添加 token
     data = {
       _id: data._id,

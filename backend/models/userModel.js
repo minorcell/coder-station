@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema(
     avatar: String, // 头像
     nickname: String, // 昵称
     mail: String, // 邮箱
+    github: String,
     qq: String, // QQ
     wechat: String, // 微信号
     intro: String, // 个人介绍
