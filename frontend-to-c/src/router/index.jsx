@@ -1,9 +1,6 @@
-// 路由配置
-
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
-// 引入页面
 import Issues from "../pages/Issues.jsx";
 import Books from "../pages/Books.jsx";
 import Interview from "../pages/Interviews.jsx";

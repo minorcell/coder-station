@@ -1,16 +1,16 @@
-import { Form, Button, Input, message, Select } from "antd";
-import { useState, useRef, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
-import { Editor } from '@toast-ui/react-editor';
+import {Form, Button, Input, message, Select} from "antd";
+import {useState, useRef, useEffect} from "react";
+import {useNavigate} from 'react-router-dom';
+import {Editor} from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import "@toast-ui/editor/dist/i18n/zh-cn";
 
 import styles from "../css/AddIssue.module.css"
-import { useSelector,useDispatch } from "react-redux"
+import {useSelector, useDispatch} from "react-redux"
 
-import { addIssue } from "../api/issue"
-import { typeOptionCreator } from "../utils/tool"
-import { getTypeList } from "../redux/typeSlice"
+import {addIssue} from "../api/issue"
+import {typeOptionCreator} from "../utils/tool"
+import {getTypeList} from "../redux/typeSlice"
 
 function AddIssue() {
 
@@ -27,9 +27,9 @@ function AddIssue() {
     });
 
     // 从仓库获取类型列表
-    const { typeList } = useSelector(state => state.type);
+    const {typeList} = useSelector(state => state.type);
     // 从仓库获取用户信息
-    const { userInfo } = useSelector(state => state.user);
+    const {userInfo} = useSelector(state => state.user);
 
     useEffect(() => {
         if (!typeList.length) {
@@ -40,7 +40,7 @@ function AddIssue() {
 
     // 用户填写内容时更新表单控件内容
     function updateInfo(newInfo, key) {
-        const newIssueInfo = { ...issueInfo };
+        const newIssueInfo = {...issueInfo};
         if (typeof newInfo === 'string') {
             newIssueInfo[key] = newInfo.trim();
         } else {
@@ -58,7 +58,7 @@ function AddIssue() {
             issueTitle: issueInfo.issueTitle, // 问题标题
             issueContent: content, // 问题描述
             userId: userInfo._id, // 用户 id
-            typeId : issueInfo.typeId,
+            typeId: issueInfo.typeId,
         });
         // 跳转回首页
         navigate('/issues');
@@ -83,7 +83,7 @@ function AddIssue() {
                 <Form.Item
                     label="标题"
                     name="issueTitle"
-                    rules={[{ required: true, message: '请输入标题' }]}
+                    rules={[{required: true, message: '请输入标题'}]}
                 >
                     <Input
                         placeholder="请输入标题"
@@ -97,10 +97,10 @@ function AddIssue() {
                 <Form.Item
                     label="问题分类"
                     name="typeId"
-                    rules={[{ required: true, message: '请选择问题所属分类' }]}
+                    rules={[{required: true, message: '请选择问题所属分类'}]}
                 >
                     <Select
-                        style={{ width: 200 }}
+                        style={{width: 200}}
                         onChange={handleChange}>
                         {typeOptionCreator(Select, typeList)}
                     </Select>
@@ -111,7 +111,7 @@ function AddIssue() {
                 <Form.Item
                     label="问题描述"
                     name="issueContent"
-                    rules={[{ required: true, message: '请输入问题描述' }]}
+                    rules={[{required: true, message: '请输入问题描述'}]}
                 >
                     <Editor
                         initialValue=""
@@ -127,7 +127,7 @@ function AddIssue() {
 
 
                 {/* 确认修改按钮 */}
-                <Form.Item wrapperCol={{ offset: 3, span: 16 }}>
+                <Form.Item wrapperCol={{offset: 3, span: 16}}>
                     <Button type="primary" htmlType="submit">
                         确认新增
                     </Button>

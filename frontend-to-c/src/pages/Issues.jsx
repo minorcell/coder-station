@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from "react-redux"
-import { Pagination } from "antd"
-import { getIssueByPage } from '../api/issue'
+import {useEffect, useState} from 'react';
+import {useSelector} from "react-redux"
+import {Pagination} from "antd"
+import {getIssueByPage} from '../api/issue'
 
 import PageHeader from "../components/PageHeader"
 import IssueItem from "../components/IssueItem"
@@ -18,10 +18,10 @@ function Issue(props) {
     const [pageInfo, setPageInfo] = useState({
         current: 1,
         pageSize: 15,
-        total:0
+        total: 0
     });
 
-    const { issueTypeId } = useSelector(state => state.type);
+    const {issueTypeId} = useSelector(state => state.type);
 
     useEffect(() => {
         async function fetchData() {
@@ -35,7 +35,7 @@ function Issue(props) {
                 // 如果按照分类进行查找，需要将当前页重新设置为第一页
                 searchParams.current = 1;
             }
-            const { data } = await getIssueByPage(searchParams);
+            const {data} = await getIssueByPage(searchParams);
             setIssueInfo(data.data);
             setPageInfo({
                 current: data.currentPage,
@@ -43,16 +43,15 @@ function Issue(props) {
                 total: data.count,
             });
         }
+
         fetchData();
     }, [issueTypeId, pageInfo.current, pageInfo.pageSize])
-
-
 
 
     let questionData = [];
     for (var i = 0; i < issueInfo.length; i++) {
         questionData.push(
-            <IssueItem key={i} issueInfo={issueInfo[i]} />
+            <IssueItem key={i} issueInfo={issueInfo[i]}/>
         )
     }
 
@@ -71,7 +70,7 @@ function Issue(props) {
     return (
         <div className="container">
             <PageHeader title="问答列表">
-                <TypeSelect />
+                <TypeSelect/>
             </PageHeader>
             <div className={styles.issueContainer}>
                 {/* 左边部分 */}
@@ -80,7 +79,8 @@ function Issue(props) {
                     {
                         issueInfo.length > 0 ? (
                             <div className="paginationContainer">
-                                <Pagination showQuickJumper defaultCurrent={1} {...pageInfo} onChange={handlePageChange}/>
+                                <Pagination showQuickJumper defaultCurrent={1} {...pageInfo}
+                                            onChange={handlePageChange}/>
                             </div>
                         ) : (<div className={styles.noIssue}>有问题，就来 coder station！</div>)
                     }
@@ -89,12 +89,12 @@ function Issue(props) {
                 {/* 右边部分 */}
                 <div className={styles.rightSide}>
                     {/* 添加问答按钮 */}
-                    <AddIssue />
-                    <div style={{ marginBottom: 20 }}>
-                        <Recommend />
+                    <AddIssue/>
+                    <div style={{marginBottom: 20}}>
+                        <Recommend/>
                     </div>
-                    <div style={{ marginBottom: 20 }}>
-                        <ScoreRank />
+                    <div style={{marginBottom: 20}}>
+                        <ScoreRank/>
                     </div>
                 </div>
             </div>

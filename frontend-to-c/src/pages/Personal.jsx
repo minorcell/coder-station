@@ -375,27 +375,27 @@ function Personal(props) {
                                 <div>当前头像：</div>
                                 <Image src={userInfo.avatar} width={100}/>
                             </div>
-                           <div>
-                               <div>上传新头像：</div>
-                               <Upload
-                                   style={{
-                                       width: 100,
-                                       height: 100
-                                   }}
-                                   action="/api/upload"
-                                   listType="picture-card"
-                                   maxCount={1}
-                                   onChange={(e) => {
-                                       if (e.file.status === 'done') {
-                                           // 说明上传已经完成
-                                           const url = e.file.response.data;
-                                           handleAvatar(url, 'avatar');
-                                       }
-                                   }}
-                               >
-                                   <PlusSquareOutlined/>
-                               </Upload>
-                           </div>
+                            <div>
+                                <div>上传新头像：</div>
+                                <Upload
+                                    style={{
+                                        width: 100,
+                                        height: 100
+                                    }}
+                                    action="/api/upload"
+                                    listType="picture-card"
+                                    maxCount={1}
+                                    onChange={(e) => {
+                                        if (e.file.status === 'done') {
+                                            // 说明上传已经完成
+                                            const url = e.file.response.data;
+                                            handleAvatar(url, 'avatar');
+                                        }
+                                    }}
+                                >
+                                    <PlusSquareOutlined/>
+                                </Upload>
+                            </div>
                         </div>
 
                     </Card>

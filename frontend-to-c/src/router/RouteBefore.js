@@ -3,7 +3,6 @@ import RouteBeforeConfig from "./RouteBeforeConfig";
 import { Alert } from "antd";
 
 function RouteBefore() {
-  // 导航守卫
   const currentPath = RouteBeforeConfig.filter(
     (item) => item.path === location.pathname
   )[0];

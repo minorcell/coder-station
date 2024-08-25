@@ -1,11 +1,10 @@
-.infoContainer{
+.infoContainer {
     display: flex;
-    justify-content:space-between;
-    /* align-items:center; */
+    justify-content: space-between;
     height: 50px;
 }
 
-.left{
+.left {
     display: flex;
     font-weight: 300;
 }

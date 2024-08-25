@@ -13,10 +13,9 @@
 .rightSide {
     width: 700px;
     height: 70vh;
-    border-radius:5px;
-    box-shadow:0 0 1px #ccc;
     border-radius: 5px;
-    position:fixed;
+    box-shadow: 0 0 1px #ccc;
+    position: fixed;
     left: 41%;
     overflow-y: auto;
     padding: 20px;
@@ -40,10 +39,10 @@
     margin-right: 8px;
 }
 
-.paginationContainer{
+.paginationContainer {
     width: 90%;
     margin: 10px auto;
     display: flex;
-    justify-content:center;
+    justify-content: center;
 }
 

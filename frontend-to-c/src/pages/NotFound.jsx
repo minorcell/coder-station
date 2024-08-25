@@ -12,7 +12,7 @@ function NotFound(props) {
                 justifyContent: 'center',
             }}
         >
-            <img src={unImg} alt="" />
+            <img src={unImg} alt="404"/>
         </div>
     );
 }

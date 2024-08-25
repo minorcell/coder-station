@@ -1,29 +1,23 @@
-/* 问答页面样式 */
-
-.issueContainer{
+.issueContainer {
     width: 90%;
-    /* height: 3000px; */
     margin: 0 auto;
-    /* outline: 1px solid red; */
     display: flex;
     flex-wrap: wrap;
-    justify-content:space-between;
+    justify-content: space-between;
     background-color: #fff;
 }
 
-.leftSide{
+.leftSide {
     width: 65%;
     height: 100%;
-    /* outline: 1px solid #ccc; */
 }
 
-.rightSide{
+.rightSide {
     width: 28%;
     height: 100%;
-    /* outline: 1px solid #ccc; */
 }
 
-.noIssue{
+.noIssue {
     text-align: center;
     font-weight: 200;
     font-size: 36px;

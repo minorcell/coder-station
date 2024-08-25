@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import { Card, Pagination } from "antd"
+import {useEffect, useState} from 'react';
+import {Card, Pagination} from "antd"
 import PageHeader from "../components/PageHeader"
 import TypeSelect from "../components/TypeSelect"
-import { getBookByPage } from '../api/book'
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from "react-redux"
+import {getBookByPage} from '../api/book'
+import {useNavigate} from 'react-router-dom';
+import {useSelector} from "react-redux"
 
 import styles from "../css/Books.module.css"
 
-const { Meta } = Card;
+const {Meta} = Card;
 
 function Books(props) {
 
@@ -20,7 +20,7 @@ function Books(props) {
     });
 
     const navigate = useNavigate();
-    const { bookTypeId } = useSelector(state => state.type);
+    const {bookTypeId} = useSelector(state => state.type);
 
     useEffect(() => {
         async function fetchData() {
@@ -33,8 +33,8 @@ function Books(props) {
                 // 如果按照分类进行查找，需要将当前页重新设置为第一页
                 searchParams.current = 1;
             }
-            console.log(searchParams,'searchParams');
-            const { data } = await getBookByPage(searchParams)
+            console.log(searchParams, 'searchParams');
+            const {data} = await getBookByPage(searchParams)
             setBookInfo(data.data);
             setPageInfo({
                 current: data.currentPage,
@@ -42,6 +42,7 @@ function Books(props) {
                 total: data.count,
             });
         }
+
         fetchData();
     }, [bookTypeId, pageInfo.current, pageInfo.pageSize])
 
@@ -59,11 +60,11 @@ function Books(props) {
                     height: 200,
                     margin: 'auto',
                     marginTop: 10
-                }} src={bookInfo[i]?.bookPic} />}
+                }} src={bookInfo[i]?.bookPic}/>}
                 key={i}
                 onClick={() => navigate(`/books/${bookInfo[i]._id}`)}
             >
-                <Meta title={bookInfo[i]?.bookTitle} />
+                <Meta title={bookInfo[i]?.bookTitle}/>
                 <div className={styles.numberContainer}>
                     <div>浏览数：{bookInfo[i]?.scanNumber}</div>
                     <div>评论数：{bookInfo[i]?.commentNumber}</div>
@@ -73,7 +74,7 @@ function Books(props) {
         if (bookInfo.length % 5 !== 0) {
             var blank = 5 - bookInfo.length % 5;
             for (let i = 1; i <= blank; i++) {
-                bookData.push(<div style={{ width: 220, marginBottom: 20 }} key={i * Math.random()}></div>)
+                bookData.push(<div style={{width: 220, marginBottom: 20}} key={i * Math.random()}></div>)
             }
         }
     }
@@ -93,7 +94,7 @@ function Books(props) {
     return (
         <div>
             <PageHeader title="最新资源">
-                <TypeSelect />
+                <TypeSelect/>
             </PageHeader>
             <div className={styles.bookContainer}>
                 {bookData}
@@ -101,11 +102,11 @@ function Books(props) {
             <div className="paginationContainer">
                 {
                     bookData.length > 0 ? (
-                        <Pagination showQuickJumper defaultCurrent={1}  {...pageInfo} onChange={handlePageChange} />
+                        <Pagination showQuickJumper defaultCurrent={1}  {...pageInfo} onChange={handlePageChange}/>
                     ) : (
                         <div style={{
                             fontSize: "26px",
-                            fontWeight:"200"
+                            fontWeight: "200"
                         }}>该分类下暂无书籍</div>
                     )
                 }

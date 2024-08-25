@@ -1,30 +1,36 @@
-.container{
+.container {
     width: 100%;
     height: 60px;
     border-top: 1px solid #ccc;
     display: flex;
-    align-items:center;
+    align-items: center;
     color: rgb(89, 89, 89);
     cursor: pointer;
 }
 
-.container:hover{
+.container:hover {
     color: rgb(157, 157, 157);
 }
 
-.leftSide{
+.leftSide {
     width: 20px;
     height: 20px;
     outline: 1px solid;
     flex-shrink: 0;
     text-align: center;
-    line-height:20px;
+    line-height: 20px;
     border-radius: 5px;
     color: #fff;
     background-color: #4091f7;
 }
 
-.rightSide{
+.rightSide {
+    height: 100%;
     box-sizing: border-box;
-    padding:10px;
+    padding: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }

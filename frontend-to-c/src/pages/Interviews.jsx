@@ -1,11 +1,11 @@
 import React from 'react';
-import { Tree, BackTop } from "antd"
+import {Tree, BackTop} from "antd"
 
-import { useSelector, useDispatch } from 'react-redux'
-import { getInterviewTitleList } from "../redux/interviewSlice"
-import { getTypeList } from "../redux/typeSlice"
-import { useState, useEffect } from "react"
-import { getInterviewById } from "../api/interview"
+import {useSelector, useDispatch} from 'react-redux'
+import {getInterviewTitleList} from "../redux/interviewSlice"
+import {getTypeList} from "../redux/typeSlice"
+import {useState, useEffect} from "react"
+import {getInterviewById} from "../api/interview"
 
 import PageHeader from "../components/PageHeader"
 
@@ -14,8 +14,8 @@ import styles from "../css/Interview.module.css"
 function Interviews(props) {
 
     const dispatch = useDispatch();
-    const { typeList } = useSelector(state => state.type);
-    const { interviewTitleList } = useSelector(state => state.interview);
+    const {typeList} = useSelector(state => state.type);
+    const {interviewTitleList} = useSelector(state => state.interview);
     const [treeData, setTreeData] = useState([]);
     const [interviewInfo, setInterviewInfo] = useState(null);
 
@@ -32,7 +32,7 @@ function Interviews(props) {
             for (let i = 0; i < typeList.length; i++) {
                 arr.push({
                     title: (<h3 style={{
-                        fontWeight:"200"
+                        fontWeight: "200"
                     }}>{typeList[i].typeName}</h3>),
                     key: i
                 })
@@ -41,12 +41,12 @@ function Interviews(props) {
                 const childrenArr = [];
                 for (let j = 0; j < interviewTitleList[i].length; j++) {
                     childrenArr.push({
-                        title: (<h4 
+                        title: (<h4
                             onClick={() => clickHandle(interviewTitleList[i][j]._id)}
                             style={{
-                                fontWeight:"200"
+                                fontWeight: "200"
                             }}
-                            >{interviewTitleList[i][j].interviewTitle}</h4>),
+                        >{interviewTitleList[i][j].interviewTitle}</h4>),
                         key: `${i}-${j}`,
                     })
                 }
@@ -57,7 +57,7 @@ function Interviews(props) {
     }, [typeList, interviewTitleList])
 
     async function clickHandle(interviewId) {
-        const { data } = await getInterviewById(interviewId);
+        const {data} = await getInterviewById(interviewId);
         setInterviewInfo(data);
     }
 
@@ -67,7 +67,7 @@ function Interviews(props) {
             <div className={styles.content}>
                 <h1 className={styles.interviewRightTitle}>{interviewInfo?.interviewTitle}</h1>
                 <div className={styles.contentContainer}>
-                    <div dangerouslySetInnerHTML={{ __html: interviewInfo?.interviewContent }}></div>
+                    <div dangerouslySetInnerHTML={{__html: interviewInfo?.interviewContent}}></div>
                 </div>
             </div>
         );
@@ -86,7 +86,7 @@ function Interviews(props) {
 
     return (
         <div className={styles.container}>
-            <PageHeader title="面试题大全" />
+            <PageHeader title="面试题大全"/>
             <div className={styles.interviewContainer}>
                 <div className={styles.leftSide}>
                     <Tree

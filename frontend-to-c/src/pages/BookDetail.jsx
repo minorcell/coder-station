@@ -1,24 +1,24 @@
 import React from 'react';
 import PageHeader from "../components/PageHeader"
 import Discuss from "../components/Discuss"
-import { Image, message, Modal } from 'antd';
-import { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
-import { updateStoreUserInfo } from "../redux/userSlice"
+import {Image, message, Modal} from 'antd';
+import {useEffect, useState} from 'react';
+import {useParams} from "react-router-dom"
+import {useSelector, useDispatch} from "react-redux"
+import {updateStoreUserInfo} from "../redux/userSlice"
 
-import { getBookById, updateBook } from "../api/book"
-import { editUser } from "../api/user"
+import {getBookById, updateBook} from "../api/book"
+import {editUser} from "../api/user"
 
 import styles from "../css/BookDetail.module.css"
 
 
 function BookDetail(props) {
 
-    const { id } = useParams(); // 获取可能传递过来的 id
+    const {id} = useParams(); // 获取可能传递过来的 id
     const [bookInfo, setBookInfo] = useState(null);
     // 获取用户信息
-    const { userInfo, isLogin } = useSelector(state => state.user);
+    const {userInfo, isLogin} = useSelector(state => state.user);
 
     const dispatch = useDispatch();
 
@@ -26,7 +26,7 @@ function BookDetail(props) {
     useEffect(() => {
         async function fetchData() {
             // 根据问答 id 获取该问答具体的信息
-            const { data } = await getBookById(id);
+            const {data} = await getBookById(id);
             setBookInfo(data);
 
             // 该书籍的浏览数 +1
@@ -34,6 +34,7 @@ function BookDetail(props) {
                 scanNumber: ++data.scanNumber
             })
         }
+
         fetchData();
     }, [])
 
@@ -65,16 +66,14 @@ function BookDetail(props) {
     };
 
 
-
     const handleCancel = () => {
         setIsModalOpen(false);
     };
 
 
-
     return (
         <div>
-            <PageHeader title="书籍详情" />
+            <PageHeader title="书籍详情"/>
             <div className={styles.bookInfoContainer}>
                 <div className={styles.leftSide}>
                     <div className={styles.img}>
@@ -84,7 +83,8 @@ function BookDetail(props) {
                         />
                     </div>
                     <div className={styles.link}>
-                        <span>下载所需积分: <span className={styles.requirePoints}>{bookInfo?.requirePoints}</span> 分</span>
+                        <span>下载所需积分: <span
+                            className={styles.requirePoints}>{bookInfo?.requirePoints}</span> 分</span>
                         {
                             isLogin ? (
                                 <div className={styles.downloadLink} onClick={showModal}>
@@ -97,7 +97,7 @@ function BookDetail(props) {
                 </div>
                 <div className={styles.rightSide}>
                     <h1 className={styles.title}>{bookInfo?.bookTitle}</h1>
-                    <div dangerouslySetInnerHTML={{ __html: bookInfo?.bookIntro }}></div>
+                    <div dangerouslySetInnerHTML={{__html: bookInfo?.bookIntro}}></div>
                 </div>
             </div>
             <div className={styles.comment}>
