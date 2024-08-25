@@ -2,6 +2,7 @@ const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const axios = require("axios");
 const logger = require("morgan");
 const session = require("express-session");
 const { ServiceError, UnknownError } = require("./utils/errors");
@@ -50,6 +51,20 @@ app.use("/api/comment", commentRouter);
 app.use("/api/interview", interviewRouter);
 app.use("/api/upload", uploadRouter);
 app.use("/res/captcha", captchaRouter);
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+
+app.get('/api/segmentfault/gateway/questions', async (req, res) => {
+  try {
+    const response = await axios.get('https://segmentfault.com/gateway/questions?query=month_hottest&page=1&size=10');
+    res.send(response.data);
+  } catch (error) {
+    res.status(500).send('Error fetching data');
+  }
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

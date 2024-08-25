@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="743d3982-961b-4d51-a3f3-16aeec1c7d3f" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/../backend/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Recommend.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Recommend.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/RecommendItem.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/RecommendItem.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setupProxy.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setupProxy.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +64,7 @@
       <workItem from="1724492043963" duration="2689000" />
       <workItem from="1724495749278" duration="334000" />
       <workItem from="1724510119987" duration="6848000" />
-      <workItem from="1724549746598" duration="6763000" />
+      <workItem from="1724549746598" duration="7648000" />
     </task>
     <servers />
   </component>
